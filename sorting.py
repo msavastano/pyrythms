@@ -33,7 +33,6 @@ class Sort:
     return self.merge(list_a, list_b)
 
   def swap(self, arr, i, min_num):
-    #self.addcounter()
     tempmin = arr[min_num]
     tempi = arr[i]
     arr[min_num] = tempi

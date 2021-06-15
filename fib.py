@@ -17,7 +17,6 @@ class fib:
   def fib_rec(self, n):
     print(n)
     self.addcounter()
-    # print('called', n)
     if n <= 1:
       return n 
     else:
