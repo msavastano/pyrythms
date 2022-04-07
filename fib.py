@@ -26,6 +26,6 @@ if __name__ == '__main__':
   counter = 0
   
   fib = fib()
-  print('Result', fib.fib_rec(15))
-  #print('Result', fib.fib_list(20))
+  # print('Result', fib.fib_rec(20))
+  print('Result', fib.fib_list(20))
   print('work: ', fib.getcounter())
