@@ -78,7 +78,7 @@ function assert(outcome, description) {
       let times = {};
       let backtrace = {};
       let pq = new PriorityQ();
-
+      let visited = new Set()
       times[startNode] = 0;
   
       this.nodes.forEach(node => {
@@ -91,6 +91,7 @@ function assert(outcome, description) {
       //console.log(pq)
       while (!pq.isEmpty()) {
         let shortestStep = pq.dequeue();
+        visited.add(shortestStep.element)
         //console.log('shortest step', shortestStep)
         let currentNode = shortestStep.element;
         //console.log('ALIST', currentNode)
@@ -99,10 +100,12 @@ function assert(outcome, description) {
           if (time < times[neighbor.node]) {
             times[neighbor.node] = time;
             backtrace[neighbor.node] = currentNode;
-            pq.enqueue(neighbor.node, time);
+            if (!(visited.has(neighbor.node))) pq.enqueue(neighbor.node, time);
           }
         });
       } 
+
+      console.log(visited)
 
       let path = [endNode];
       let lastStep = endNode;
@@ -116,32 +119,36 @@ function assert(outcome, description) {
   }
 
   let map = new Graph();
-  map.addNode("Fullstack");
-  map.addNode("Starbucks");
-  map.addNode("Dig Inn");
-  map.addNode("Dubliner");
-  map.addNode("Cafe Grumpy");
-  map.addNode("Insomnia Cookies");
+  // map.addNode("Fullstack");
+  // map.addNode("Starbucks");
+  // map.addNode("Dig Inn");
+  // map.addNode("Dubliner");
+  // map.addNode("Cafe Grumpy");
+  // map.addNode("Insomnia Cookies");
   
-  map.addEdge("Fullstack", "Starbucks", 6);
+  map.addNode("SFC");
+  map.addNode("SEA");
+  map.addNode("CHI");
+  map.addNode("IDO");
+  map.addNode("NYC");
 
-  map.addEdge("Fullstack", "Dig Inn", 7); 
+  map.addEdge("SFC", "SEA", 3);
+  map.addEdge("SFC", "SEA", 5);
+  map.addEdge("IDO", "NYC", 6);
+  map.addEdge("SEA", "CHI", 2); 
+  map.addEdge("SEA", "IDO", 1);
+  map.addEdge("IDO", "CHI", 3);
+  map.addEdge("CHI", "NYC", 4);
 
-  map.addEdge("Fullstack", "Dubliner", 2);
+  // map.addEdge("Cafe Grumpy", "Dig Inn", 9); 
 
-  map.addEdge("Dig Inn", "Dubliner", 4);
-
-  map.addEdge("Insomnia Cookies", "Dubliner", 7);
-
-  map.addEdge("Cafe Grumpy", "Dig Inn", 9); 
-
-  map.addEdge("Cafe Grumpy", "Insomnia Cookies", 5);
+  // map.addEdge("Cafe Grumpy", "Insomnia Cookies", 5);
   
-  map.addEdge("Dubliner", "Starbucks", 3);
+  // map.addEdge("Dubliner", "Starbucks", 3);
 
-  map.addEdge("Insomnia Cookies", "Starbucks", 6);
+  // map.addEdge("Insomnia Cookies", "Starbucks", 6);
   // console.log(map.adjacencyList)
-  console.log(map.dijkstraShortestPath('Fullstack', 'Dig Inn'))
+  console.log(map.dijkstraShortestPath('SFC', 'IDO'))
   //console.log(map.adjacencyList)
   // console.log(map.nodes)
   
